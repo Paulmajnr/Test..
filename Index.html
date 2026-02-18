@@ -1,0 +1,384 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinServe - Financial Services</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.min.js"></script>
+
+<script>
+  // Run only on homepage (index.html)
+  if (window.location.pathname.endsWith("Index.html") || window.location.pathname === "/") {
+    window.addEventListener("load", function () {
+      const spinner = document.getElementById("spinnerOverlay");
+      if (spinner) {
+        // Keep spinner visible for at least 1.5s before fading
+        setTimeout(() => {
+          spinner.classList.add("fade-out");
+          setTimeout(() => spinner.remove(), 600); // remove after fade
+        }, 1500); // minimum visible time (1.5s)
+      }
+    });
+  }
+</script>
+
+<body>
+  <!-- Spinner Overlay -->
+  <div id="spinnerOverlay" class="d-flex justify-content-center align-items-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Rest of your content starts here -->
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <div class="container">
+  <a class="navbar-brand fw-bold" href="Index.html"><i class="bi bi-piggy-bank-fill me-2"></i>FinTrust</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navCalc">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navCalc">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="Index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+          <li class="nav-item"><a class="nav-link active" href="budgetingtool.html">Calculators</a></li>
+          <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="bg-dark text-white text-center py-5">
+    <div class="container">
+      <h1 class="display-4 fw-bold">Smarter Financial Decisions Start Here</h1>
+      <p class="lead">We provide investment strategies, market insights, and budgeting tools to help you build a secure future.</p>
+      <a href="investment.html" class="btn btn-light btn-lg mt-3">Explore Investment Tips</a>
+    </div>
+</header>
+<section class="hero">
+  <div class="hero-glass">
+
+    <div class="hero-content">
+      <h1>
+        Build Wealth With<br>
+        <span>Confidence</span>
+      </h1>
+
+      <p>
+        Learn smart investing, access expert support, and grow your financial future with clarity and trust.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="#services" class="btn-primary">Start Learning</a>
+        <a href="https://wa.me/2348012345678" target="_blank" class="btn-outline">
+          WhatsApp Support
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat">
+    <h3 data-target="10000">0</h3>
+    <span>Students</span>
+  </div>
+  <div class="stat">
+    <h3 data-target="95">0</h3>
+    <span>Success Rate (%)</span>
+  </div>
+  <div class="stat">
+    <h3 data-target="24">0</h3>
+    <span>Support (hrs)</span>
+  </div>
+</div>
+    </div>
+<script>
+  const counters = document.querySelectorAll('.stat h3');
+  const speed = 200;
+
+  counters.forEach(counter => {
+    const updateCount = () => {
+      const target = +counter.getAttribute('data-target');
+      const count = +counter.innerText;
+      const increment = target / speed;
+
+      if (count < target) {
+        counter.innerText = Math.ceil(count + increment);
+        setTimeout(updateCount, 20);
+      } else {
+        counter.innerText = target.toLocaleString();
+      }
+    };
+
+    updateCount();
+  });
+</script>
+
+    <div class="hero-image">
+      <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71" alt="Investment dashboard">
+    </div>
+
+  </div>
+</section>
+
+<div class="container py-5">
+  <h2 class="fw-bold mb-4">Advanced Budgeting Tool</h2>
+  <p>Plan your finances with our detailed budgeting tool. Track expenses by category and set savings goals.</p>
+
+  <form id="budgetForm" class="p-4 border rounded bg-light shadow-sm">
+    <div class="mb-3">
+      <label for="income" class="form-label">Monthly Income ($)</label>
+      <input type="number" id="income" class="form-control" min="0" step="0.01" required>
+    </div>
+    <h5 class="mt-4">Monthly Expenses ($)</h5>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <label for="rent" class="form-label">Rent/Mortgage</label>
+        <input type="number" id="rent" class="form-control" min="0" step="0.01">
+      </div>
+      <div class="col-md-4">
+        <label for="groceries" class="form-label">Groceries</label>
+        <input type="number" id="groceries" class="form-control" min="0" step="0.01">
+      </div>
+      <div class="col-md-4">
+        <label for="utilities" class="form-label">Utilities</label>
+        <input type="number" id="utilities" class="form-control" min="0" step="0.01">
+      </div>
+      <div class="col-md-4">
+        <label for="transport" class="form-label">Transportation</label>
+        <input type="number" id="transport" class="form-control" min="0" step="0.01">
+      </div>
+      <div class="col-md-4">
+        <label for="other" class="form-label">Other Expenses</label>
+        <input type="number" id="other" class="form-control" min="0" step="0.01">
+      </div>
+    </div>
+    <div class="mb-3 mt-3">
+      <label for="savingsGoal" class="form-label">Monthly Savings Goal ($)</label>
+      <input type="number" id="savingsGoal" class="form-control" min="0" step="0.01">
+    </div>
+    <div class="d-flex gap-2">
+      <button type="submit" class="btn btn-secondary">Calculate Budget</button>
+      <button type="button" id="resetBtn" class="btn btn-outline-secondary">Reset</button>
+    </div>
+  </form>
+
+  <div id="budgetResult" class="mt-4"></div>
+  <div class="mt-4">
+    <canvas id="budgetChart" style="max-height: 300px;"></canvas>
+  </div>
+</div>
+
+  <!-- Footer -->
+<footer class="bg-primary text-white pt-5 pb-3">
+  <div class="container">
+    <div class="row">
+      
+      <!-- About -->
+      <div class="col-md-4 mb-4">
+        <h5 class="fw-bold">FinTrust</h5>
+        <p>Helping you make smarter financial decisions with expert advice, tools, and strategies for a secure future.</p>
+      </div>
+      
+      <!-- Quick Links -->
+      <div class="col-md-2 mb-4">
+        <h6 class="fw-bold">Quick Links</h6>
+        <ul class="list-unstyled">
+          <li><a href="index.html" class="text-white text-decoration-none">Home</a></li>
+          <li><a href="about.html" class="text-white text-decoration-none">About</a></li>
+          <li><a href="services.html" class="text-white text-decoration-none">Services</a></li>
+          <li><a href="retirement.html" class="text-white text-decoration-none">Retirement</a></li>
+          <li><a href="contact.html" class="text-white text-decoration-none">Contact</a></li>
+        </ul>
+      </div>
+      
+      <!-- Resources -->
+      <div class="col-md-3 mb-4">
+        <h6 class="fw-bold">Resources</h6>
+        <ul class="list-unstyled">
+          <li><a href="news.html" class="text-white text-decoration-none">Financial News</a></li>
+          <li><a href="investment.html" class="text-white text-decoration-none">Investment Tips</a></li>
+          <li><a href="budgeting.html" class="text-white text-decoration-none">Budgeting Tools</a></li>
+        </ul>
+      </div>
+      
+      <!-- Contact -->
+      <div class="col-md-3 mb-4">
+        <h6 class="fw-bold">Contact</h6>
+        <ul class="list-unstyled">
+          <li><i class="bi bi-geo-alt-fill me-2"></i> 123 Finance Street, City</li>
+          <li><i class="bi bi-telephone-fill me-2"></i> +1 555 123 4567</li>
+          <li><i class="bi bi-envelope-fill me-2"></i> support@finserve.com</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <hr class="border-light">
+  <p class="text-center mb-0">&copy; 2025 FinServe. All Rights Reserved.</p>
+  </div>
+<a href="https://wa.me/2348012345678?text=Hello%20I%20need%20support"
+   class="whatsapp-float"
+   target="_blank"
+   aria-label="Chat with us on WhatsApp">
+<i class="bi bi-whatsapp"></i>
+</a>
+</footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>document.getElementById('budgetForm').addEventListener('submit', function(event) {
+  event.preventDefault(); // Prevent form from refreshing the page
+
+  // Get input values
+  const income = parseFloat(document.getElementById('income').value);
+  const expenses = parseFloat(document.getElementById('expenses').value);
+  const resultDiv = document.getElementById('budgetResult');
+
+  // Validate inputs
+  if (isNaN(income) || isNaN(expenses)) {
+    resultDiv.innerHTML = '<p class="text-danger">Please enter valid numbers for income and expenses.</p>';
+    return;
+  }
+
+  // Calculate savings
+  const savings = income - expenses;
+
+  // Display result
+  if (savings >= 0) {
+    resultDiv.innerHTML = `<p class="text-success">Your monthly savings: $${savings.toFixed(2)}</p>`;
+  } else {
+    resultDiv.innerHTML = `<p class="text-warning">You are overspending by: $${Math.abs(savings).toFixed(2)}</p>`;
+  }
+}); 
+
+// Initialize Chart.js
+let budgetChart = null;
+
+document.getElementById('budgetForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  // Get input values
+  const income = parseFloat(document.getElementById('income').value) || 0;
+  const rent = parseFloat(document.getElementById('rent').value) || 0;
+  const groceries = parseFloat(document.getElementById('groceries').value) || 0;
+  const utilities = parseFloat(document.getElementById('utilities').value) || 0;
+  const transport = parseFloat(document.getElementById('transport').value) || 0;
+  const other = parseFloat(document.getElementById('other').value) || 0;
+  const savingsGoal = parseFloat(document.getElementById('savingsGoal').value) || 0;
+  const resultDiv = document.getElementById('budgetResult');
+
+  // Calculate total expenses
+  const totalExpenses = rent + groceries + utilities + transport + other;
+  const savings = income - totalExpenses;
+
+  // Validate inputs
+  if (income <= 0) {
+    resultDiv.innerHTML = '<p class="text-danger">Please enter a valid income greater than 0.</p>';
+    return;
+  }
+
+  // Save to local storage
+  localStorage.setItem('budgetData', JSON.stringify({
+    income, rent, groceries, utilities, transport, other, savingsGoal
+  }));
+
+  // Display results
+  let resultHTML = `
+    <h5>Budget Summary</h5>
+    <p><strong>Total Income:</strong> $${income.toFixed(2)}</p>
+    <p><strong>Total Expenses:</strong> $${totalExpenses.toFixed(2)}</p>
+    <ul>
+      <li>Rent/Mortgage: $${rent.toFixed(2)}</li>
+      <li>Groceries: $${groceries.toFixed(2)}</li>
+      <li>Utilities: $${utilities.toFixed(2)}</li>
+      <li>Transportation: $${transport.toFixed(2)}</li>
+      <li>Other: $${other.toFixed(2)}</li>
+    </ul>
+    <p><strong>Savings:</strong> <span class="${savings >= 0 ? 'text-success' : 'text-warning'}">
+      $${Math.abs(savings).toFixed(2)} ${savings >= 0 ? '' : '(Overspending)'}</span></p>
+  `;
+  if (savingsGoal > 0) {
+    resultHTML += `<p><strong>Savings Goal:</strong> $${savingsGoal.toFixed(2)} 
+      <span class="${savings >= savingsGoal ? 'text-success' : 'text-warning'}">
+      (${savings >= savingsGoal ? 'Goal Met!' : 'Goal Not Met'})</span></p>`;
+  }
+  resultDiv.innerHTML = resultHTML;
+
+  // Update chart
+  updateChart(income, totalExpenses, savings);
+});
+
+// Load saved data from local storage
+window.addEventListener('load', function() {
+  const savedData = localStorage.getItem('budgetData');
+  if (savedData) {
+    const data = JSON.parse(savedData);
+    document.getElementById('income').value = data.income || '';
+    document.getElementById('rent').value = data.rent || '';
+    document.getElementById('groceries').value = data.groceries || '';
+    document.getElementById('utilities').value = data.utilities || '';
+    document.getElementById('transport').value = data.transport || '';
+    document.getElementById('other').value = data.other || '';
+    document.getElementById('savingsGoal').value = data.savingsGoal || '';
+  }
+});
+
+// Reset form and clear storage
+document.getElementById('resetBtn').addEventListener('click', function() {
+  document.getElementById('budgetForm').reset();
+  localStorage.removeItem('budgetData');
+  document.getElementById('budgetResult').innerHTML = '';
+  if (budgetChart) {
+    budgetChart.destroy();
+    budgetChart = null;
+  }
+});
+
+// Chart.js configuration
+function updateChart(income, totalExpenses, savings) {
+  const ctx = document.getElementById('budgetChart').getContext('2d');
+  
+  // Destroy existing chart if it exists
+  if (budgetChart) {
+    budgetChart.destroy();
+  }
+
+  ```chartjs
+  {
+    type: 'pie',
+    data: {
+      labels: ['Income', 'Expenses', 'Savings'],
+      datasets: [{
+        data: [income, totalExpenses, Math.max(0, savings)],
+        backgroundColor: ['#28a745', '#dc3545', '#ffc107'],
+        borderColor: ['#ffffff', '#ffffff', '#ffffff'],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+          labels: {
+            color: '#333'
+          }
+        },
+        title: {
+          display: true,
+          text: 'Budget Breakdown',
+          color: '#333',
+          font: { size: 16 }
+        }
+      }
+    }
+  }
+</script>
+
+</html>
